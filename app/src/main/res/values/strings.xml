@@ -5,5 +5,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="desc_book">Book</string>
     <string name="tag_line">Матны требующего знания</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_additionally">Дополнительно</string>
+    <string name="action_about_us">О нас</string>
+    <string name="action_rate">Оценить</string>
+    <string name="action_share">Поделиться</string>
+    <string name="action_night_mode">Ночной режим</string>
 
 </resources>
