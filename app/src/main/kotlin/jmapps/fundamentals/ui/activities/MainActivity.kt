@@ -13,16 +13,21 @@ import com.google.android.material.navigation.NavigationView
 import jmapps.fundamentals.R
 import jmapps.fundamentals.data.database.sqlite.helper.SQLiteOpenHelper
 import jmapps.fundamentals.data.database.sqlite.lists.BookList
+import jmapps.fundamentals.mvp.other.OtherContract
+import jmapps.fundamentals.mvp.other.OtherPresenterImpl
 import jmapps.fundamentals.ui.adapter.BookListAdapter
+import jmapps.fundamentals.ui.fragment.AboutUsBottomSheet
+import jmapps.fundamentals.ui.fragment.SettingsBottomSheet
 import jmapps.fundamentals.ui.model.Books
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    BookListAdapter.OnItemBookClick {
+    BookListAdapter.OnItemBookClick, OtherContract.OtherView {
 
     private lateinit var database: SQLiteDatabase
+    private lateinit var otherPresenterImpl: OtherPresenterImpl
 
     private lateinit var bookList: MutableList<Books>
     private lateinit var bookListAdapter: BookListAdapter
@@ -34,6 +39,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         database = SQLiteOpenHelper(this).readableDatabase
         bookList = BookList(this).getBookList
+
+        otherPresenterImpl = OtherPresenterImpl(this, this)
 
         val verticalLayout = LinearLayoutManager(this)
         rvMainBooks.layoutManager = verticalLayout
@@ -71,6 +78,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
+            R.id.nav_settings -> otherPresenterImpl.getSettings()
+
+            R.id.nav_about_us -> otherPresenterImpl.getAboutUs()
+
+            R.id.nav_rate -> otherPresenterImpl.rateApp()
+
+            R.id.nav_share -> otherPresenterImpl.shareLink()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -78,5 +92,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onItemClick(bookId: Int) {
         Toast.makeText(this, "$bookId", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showSettings() {
+        val settings = SettingsBottomSheet()
+        settings.show(supportFragmentManager, SettingsBottomSheet.settingsUsTag)
+    }
+
+    override fun showAboutUs() {
+        val aboutUs = AboutUsBottomSheet()
+        aboutUs.show(supportFragmentManager, AboutUsBottomSheet.aboutUsTag)
     }
 }
