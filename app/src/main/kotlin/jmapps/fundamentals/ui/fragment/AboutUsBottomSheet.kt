@@ -16,12 +16,7 @@ class AboutUsBottomSheet : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootAboutUs = inflater.inflate(R.layout.bottom_sheet_about_us, container, false)
-
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-
-        dialog?.setOnDismissListener {
-            dialog?.dismiss()
-        }
         return rootAboutUs
     }
 
