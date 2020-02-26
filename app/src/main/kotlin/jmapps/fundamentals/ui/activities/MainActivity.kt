@@ -1,12 +1,13 @@
 package jmapps.fundamentals.ui.activities
 
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuView
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -26,11 +27,13 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BookListAdapter.OnItemBookClick, OtherContract.OtherView {
 
-    private lateinit var database: SQLiteDatabase
+    private var database: SQLiteDatabase? = null
     private lateinit var otherPresenterImpl: OtherPresenterImpl
 
     private lateinit var bookList: MutableList<Books>
     private lateinit var bookListAdapter: BookListAdapter
+
+    private lateinit var nightModeState: MenuView.ItemView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +78,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.action_night_mode -> {
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
@@ -91,7 +103,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onItemClick(bookId: Int) {
-        Toast.makeText(this, "$bookId", Toast.LENGTH_SHORT).show()
+        val toBookActivity = Intent(this, BookActivity::class.java)
+        startActivity(toBookActivity)
     }
 
     override fun showSettings() {
@@ -102,5 +115,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun showAboutUs() {
         val aboutUs = AboutUsBottomSheet()
         aboutUs.show(supportFragmentManager, AboutUsBottomSheet.aboutUsTag)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        database?.close()
     }
 }
