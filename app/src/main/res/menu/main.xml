@@ -6,5 +6,6 @@
         android:id="@+id/action_night_mode"
         android:icon="@drawable/ic_night"
         android:title="@string/action_night_mode"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>
