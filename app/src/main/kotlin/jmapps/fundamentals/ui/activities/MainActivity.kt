@@ -9,23 +9,24 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuView
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import jmapps.fundamentals.R
 import jmapps.fundamentals.data.database.sqlite.helper.SQLiteOpenHelper
 import jmapps.fundamentals.data.database.sqlite.lists.BookList
+import jmapps.fundamentals.databinding.ActivityMainBinding
 import jmapps.fundamentals.mvp.other.OtherContract
 import jmapps.fundamentals.mvp.other.OtherPresenterImpl
 import jmapps.fundamentals.ui.adapter.BookListAdapter
 import jmapps.fundamentals.ui.fragment.AboutUsBottomSheet
 import jmapps.fundamentals.ui.fragment.SettingsBottomSheet
 import jmapps.fundamentals.ui.model.Books
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BookListAdapter.OnItemBookClick, OtherContract.OtherView {
+
+    private lateinit var binding: ActivityMainBinding
 
     private var database: SQLiteDatabase? = null
     private lateinit var otherPresenterImpl: OtherPresenterImpl
@@ -37,8 +38,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.appBarMain.toolbar)
 
         database = SQLiteOpenHelper(this).readableDatabase
         bookList = BookList(this).getBookList
@@ -46,28 +47,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         otherPresenterImpl = OtherPresenterImpl(this, this)
 
         val verticalLayout = LinearLayoutManager(this)
-        rvMainBooks.layoutManager = verticalLayout
+        binding.appBarMain.mainContent.rvMainBooks.layoutManager = verticalLayout
 
         bookListAdapter = BookListAdapter(this, bookList, this)
-        rvMainBooks.adapter = bookListAdapter
+        binding.appBarMain.mainContent.rvMainBooks.adapter = bookListAdapter
 
         val toggle = ActionBarDrawerToggle(
             this,
-            drawerLayout,
-            toolbar,
+            binding.drawerLayout,
+            binding.appBarMain.toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
 
-        drawerLayout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        navigationView.setNavigationItemSelectedListener(this)
+        binding.navigationView.setNavigationItemSelectedListener(this)
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.nav_share -> otherPresenterImpl.shareLink()
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

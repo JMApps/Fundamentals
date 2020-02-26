@@ -6,19 +6,21 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.appbar.AppBarLayout
 import jmapps.fundamentals.R
 import jmapps.fundamentals.data.database.sqlite.lists.BookContentList
+import jmapps.fundamentals.databinding.ActivityBookBinding
 import jmapps.fundamentals.ui.adapter.SectionsPagerAdapter
 import jmapps.fundamentals.ui.fragment.ChaptersBottomSheet
 import jmapps.fundamentals.ui.model.BookContent
-import kotlinx.android.synthetic.main.activity_book.*
-import kotlinx.android.synthetic.main.content_book.*
 
 class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener,
     ChaptersBottomSheet.SetCurrentChapter {
+
+    private lateinit var binding: ActivityBookBinding
 
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -28,32 +30,32 @@ class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book)
-        setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_book)
+        setSupportActionBar(binding.toolbar)
+
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         editor = preferences.edit()
 
         numberOfPager = BookContentList(this).getBookContentList
-        tvNameChapter.text = numberOfPager[0].nameChapter
-
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.tvNameChapter.text = numberOfPager[0].nameChapter
 
         val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, numberOfPager)
-        bookPager.adapter = sectionsPagerAdapter
+        binding.contentBook.bookPager.adapter = sectionsPagerAdapter
 
-        bookPager.addOnPageChangeListener(this)
+        binding.contentBook.bookPager.addOnPageChangeListener(this)
 
-        appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+        binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             if (verticalOffset < 0) {
-                fabChapters.hide()
+                binding.fabChapters.hide()
             } else {
-                fabChapters.show()
+                binding.fabChapters.show()
             }
         })
 
-        fabChapters.setOnClickListener(this)
+        binding.fabChapters.setOnClickListener(this)
         loadLastPagerPosition()
     }
 
@@ -70,7 +72,7 @@ class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     override fun onPageSelected(position: Int) {
-        tvNameChapter.text = numberOfPager[position].nameChapter
+        binding.tvNameChapter.text = numberOfPager[position].nameChapter
     }
 
     override fun onClick(v: View?) {
@@ -79,7 +81,7 @@ class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     }
 
     override fun setCurrentChapter(chapterId: Int) {
-        bookPager.currentItem = chapterId - 1
+        binding.contentBook.bookPager.currentItem = chapterId - 1
     }
 
     override fun onStop() {
@@ -93,11 +95,11 @@ class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     }
 
     private fun saveLastPagerPosition() {
-        editor.putInt("key_last_pager_position", bookPager.currentItem).apply()
+        editor.putInt("key_last_pager_position", binding.contentBook.bookPager.currentItem).apply()
     }
 
     private fun loadLastPagerPosition() {
         val lastPosition = preferences.getInt("key_last_pager_position", 0)
-        bookPager.currentItem = lastPosition
+        binding.contentBook.bookPager.currentItem = lastPosition
     }
 }
