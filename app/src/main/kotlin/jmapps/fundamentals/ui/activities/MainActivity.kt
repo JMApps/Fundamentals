@@ -1,15 +1,18 @@
 package jmapps.fundamentals.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import jmapps.fundamentals.R
@@ -23,10 +26,14 @@ import jmapps.fundamentals.ui.fragment.AboutUsBottomSheet
 import jmapps.fundamentals.ui.fragment.SettingsBottomSheet
 import jmapps.fundamentals.ui.model.Books
 
+
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BookListAdapter.OnItemBookClick, OtherContract.OtherView {
 
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private var database: SQLiteDatabase? = null
     private lateinit var otherPresenterImpl: OtherPresenterImpl
@@ -34,17 +41,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var bookList: MutableList<Books>
     private lateinit var bookListAdapter: BookListAdapter
 
-    private lateinit var nightModeState: MenuView.ItemView
+    private var valNightMode: Boolean = false
+    private lateinit var nightModeItem: MenuItem
 
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        database = SQLiteOpenHelper(this).readableDatabase
-        bookList = BookList(this).getBookList
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        editor = preferences.edit()
 
         otherPresenterImpl = OtherPresenterImpl(this, this)
+
+        valNightMode = preferences.getBoolean("key_night_mode", false)
+        isNightMode(valNightMode)
+
+        database = SQLiteOpenHelper(this).readableDatabase
+        bookList = BookList(this).getBookList
 
         val verticalLayout = LinearLayoutManager(this)
         binding.appBarMain.mainContent.rvMainBooks.layoutManager = verticalLayout
@@ -76,13 +91,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+        nightModeItem = menu.findItem(R.id.action_night_mode)
+        nightModeItem.isChecked = valNightMode
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.action_night_mode -> {
+                otherPresenterImpl.setNightMode(!nightModeItem.isChecked)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -116,6 +133,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun showAboutUs() {
         val aboutUs = AboutUsBottomSheet()
         aboutUs.show(supportFragmentManager, AboutUsBottomSheet.aboutUsTag)
+    }
+
+    override fun getNightMode(state: Boolean) {
+        isNightMode(state)
+        editor.putBoolean("key_night_mode", state).apply()
+    }
+
+    override fun isNightMode(state: Boolean) {
+        if (state) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     override fun onDestroy() {

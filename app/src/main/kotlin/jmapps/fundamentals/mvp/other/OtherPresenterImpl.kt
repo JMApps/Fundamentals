@@ -20,6 +20,11 @@ class OtherPresenterImpl(
         otherView?.showAboutUs()
     }
 
+    override fun setNightMode(state: Boolean) {
+        otherView?.getNightMode(state)
+        otherView?.isNightMode(state)
+    }
+
     override fun shareLink() {
         val shareLink = Intent(Intent.ACTION_SEND)
         shareLink.type = "text/plain"

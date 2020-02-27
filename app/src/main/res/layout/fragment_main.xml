@@ -35,6 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="12dp"
+                    android:textColor="@color/main"
+                    android:textIsSelectable="true"
                     android:textSize="18sp" />
 
                 <TextView
@@ -42,7 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="12dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/main"
+                    android:textIsSelectable="true"
                     android:textSize="18sp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
