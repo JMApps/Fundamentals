@@ -39,8 +39,9 @@
                     android:fitsSystemWindows="true"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:textColor="@color/silver"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
