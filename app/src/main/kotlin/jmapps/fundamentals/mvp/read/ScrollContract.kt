@@ -4,10 +4,7 @@ import android.content.SharedPreferences
 
 interface ScrollContract {
 
-    interface ScrollView {
-
-
-    }
+    interface ScrollView
 
     interface ScrollPresenter {
 

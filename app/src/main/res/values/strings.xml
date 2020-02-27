@@ -34,8 +34,8 @@
     <string name="action_add_first_note">Добавьте первую заметку</string>
     <string name="title_activity_add_note">Добавить заметку</string>
     <string name="action_add">Добавить</string>
-    <string name="action_note_content">Содержимое заметки...</string>
-    <string name="action_note_title">Название главы...</string>
+    <string name="action_note_content">Содержимое заметки…</string>
+    <string name="action_note_title">Название главы…</string>
     <string name="action_attention">Внимание!</string>
     <string name="dialog_question_add">Сохранить изменения перед выходом?</string>
     <string name="dialog_cancel">Отмена</string>

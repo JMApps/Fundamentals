@@ -26,7 +26,6 @@ import jmapps.fundamentals.ui.fragment.AboutUsBottomSheet
 import jmapps.fundamentals.ui.fragment.SettingsBottomSheet
 import jmapps.fundamentals.ui.model.Books
 
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BookListAdapter.OnItemBookClick, OtherContract.OtherView {
 

@@ -6,7 +6,6 @@ import android.widget.ProgressBar
 import androidx.core.widget.NestedScrollView
 
 class ScrollPresenterImpl(
-    private val scrollView: ScrollContract.ScrollView,
     private var contentNumber: Int,
     private val mainScroll: NestedScrollView,
     private val progressScroll: ProgressBar) :

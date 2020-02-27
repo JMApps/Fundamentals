@@ -58,7 +58,11 @@ class PlaceholderFragment : Fragment(), ScrollContract.ScrollView {
         binding.tvBookContentArabic.text = numberOfPager[sectionNumber!! - 1].contentArabic
         binding.tvBookContentTranslation.text = Html.fromHtml(numberOfPager[sectionNumber!! - 1].contentTranslation)
 
-        scrollPresenterImpl = ScrollPresenterImpl(this, sectionNumber!!, binding.nsMainContainer, binding.lastReadingPosition)
+        scrollPresenterImpl = ScrollPresenterImpl(
+            sectionNumber!!,
+            binding.nsMainContainer,
+            binding.lastReadingPosition
+        )
         scrollPresenterImpl.scrollCount()
         scrollPresenterImpl.loadLastCount(preferences)
 
