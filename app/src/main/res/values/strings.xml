@@ -30,4 +30,19 @@
     <string name="action_show_text_arabic">Отображение арабского текста</string>
     <string name="action_show_text_translation">Отображение текста перевода</string>
     <string name="action_chapter">Список глав</string>
+    <string name="title_activity_notes">Заметки</string>
+    <string name="action_add_first_note">Добавьте первую заметку</string>
+    <string name="title_activity_add_note">Добавить заметку</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_note_content">Содержимое заметки...</string>
+    <string name="action_note_title">Название главы...</string>
+    <string name="action_attention">Внимание!</string>
+    <string name="dialog_question_add">Сохранить изменения перед выходом?</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_not">Не сохранять</string>
+    <string name="dialog_add">Сохранить</string>
+    <string name="popup_share">Поделиться</string>
+    <string name="popup_delete">Удалить</string>
+    <string name="popup_delete_all">Удалить всё</string>
+    <string name="dialog_deleted">Удалено</string>
 </resources>

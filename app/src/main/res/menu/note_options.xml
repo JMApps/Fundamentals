@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="jmapps.fundamentals.ui.activities.NotesActivity">
+
+    <item
+        android:id="@+id/popup_share"
+        android:orderInCategory="1"
+        android:title="@string/popup_share" />
+
+    <!--    <item-->
+    <!--        android:id="@+id/popup_change"-->
+    <!--        android:icon="@drawable/ic_change"-->
+    <!--        android:orderInCategory="1"-->
+    <!--        android:title="@string/popup_change" />-->
+
+    <item
+        android:id="@+id/popup_delete"
+        android:orderInCategory="3"
+        android:title="@string/popup_delete" />
+
+    <item
+        android:id="@+id/popup_delete_all"
+        android:orderInCategory="4"
+        android:title="@string/popup_delete_all" />
+</menu>

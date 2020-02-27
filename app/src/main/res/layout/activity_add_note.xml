@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etNoteTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/add_note_view_corners"
+            android:gravity="start"
+            android:hint="@string/action_note_title"
+            android:imeOptions="actionNext"
+            android:inputType="textCapSentences|text"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:scrollbarThumbVertical="@drawable/scroll_thumb"
+            android:scrollbars="vertical"
+            android:textColor="@color/add_note_edit_text_request_color"
+            android:textColorHint="@color/etHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/etNoteContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/add_note_view_corners"
+            android:gravity="start"
+            android:hint="@string/action_note_content"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences|textMultiLine"
+            android:overScrollMode="ifContentScrolls"
+            android:padding="8dp"
+            android:scrollbarThumbVertical="@drawable/scroll_thumb"
+            android:scrollbars="vertical"
+            android:textColor="@color/add_note_edit_text_request_color"
+            android:textColorHint="@color/etHintColor"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddNote"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNoteTitle" />
+
+        <Button
+            android:id="@+id/btnAddNote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_ripple"
+            android:text="@string/action_add"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
