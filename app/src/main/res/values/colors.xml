@@ -4,10 +4,13 @@
     <color name="colorPrimaryDark">#1882A2</color>
     <color name="colorAccent">#E53935</color>
 
-    <color name="main">#2F2F2F</color>
+    <color name="main">#383838</color>
+    <color name="reMain">#F4F4F4</color>
+    <color name="etHintColor">#767676</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#2E2E2E</color>
     <color name="silver">#DEDEDE</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="itemBookColor">#00838F</color>
+    <color name="ripple">#8E201D</color>
 </resources>
