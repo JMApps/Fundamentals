@@ -1,6 +1,7 @@
 package jmapps.fundamentals.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
@@ -49,19 +50,22 @@ class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
 
         binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             if (verticalOffset < 0) {
+                binding.fabNotes.hide()
                 binding.fabChapters.hide()
             } else {
+                binding.fabNotes.show()
                 binding.fabChapters.show()
             }
         })
 
+        binding.fabNotes.setOnClickListener(this)
         binding.fabChapters.setOnClickListener(this)
+
         loadLastPagerPosition()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
@@ -76,8 +80,16 @@ class BookActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     }
 
     override fun onClick(v: View?) {
-        val chaptersBottomSheet = ChaptersBottomSheet()
-        chaptersBottomSheet.show(supportFragmentManager, ChaptersBottomSheet.chaptersTag)
+        when (v?.id) {
+            R.id.fabNotes -> {
+                val toNotesActivity = Intent(this, NotesActivity::class.java)
+                startActivity(toNotesActivity)
+            }
+            R.id.fabChapters -> {
+                val chaptersBottomSheet = ChaptersBottomSheet()
+                chaptersBottomSheet.show(supportFragmentManager, ChaptersBottomSheet.chaptersTag)
+            }
+        }
     }
 
     override fun setCurrentChapter(chapterId: Int) {
