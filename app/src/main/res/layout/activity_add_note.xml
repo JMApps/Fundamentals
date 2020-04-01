@@ -17,13 +17,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/add_note_view_corners"
             android:gravity="start"
             android:hint="@string/action_note_title"
             android:imeOptions="actionNext"
+            android:importantForAutofill="no"
             android:inputType="textCapSentences|text"
             android:maxLines="1"
-            android:padding="8dp"
+            android:padding="16dp"
             android:scrollbarThumbVertical="@drawable/scroll_thumb"
             android:scrollbars="vertical"
             android:textColor="@color/add_note_edit_text_request_color"
@@ -31,8 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no">
+            app:layout_constraintTop_toTopOf="parent">
 
             <requestFocus />
         </EditText>
@@ -45,13 +44,13 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/add_note_view_corners"
             android:gravity="start"
             android:hint="@string/action_note_content"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapSentences|textMultiLine"
             android:overScrollMode="ifContentScrolls"
-            android:padding="8dp"
+            android:padding="16dp"
             android:scrollbarThumbVertical="@drawable/scroll_thumb"
             android:scrollbars="vertical"
             android:textColor="@color/add_note_edit_text_request_color"
@@ -59,8 +58,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btnAddNote"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNoteTitle"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/etNoteTitle" />
 
         <Button
             android:id="@+id/btnAddNote"
