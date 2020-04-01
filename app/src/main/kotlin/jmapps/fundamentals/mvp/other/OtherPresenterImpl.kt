@@ -9,7 +9,7 @@ class OtherPresenterImpl(
     private val otherView: OtherContract.OtherView?) :
     OtherContract.OtherPresenter {
 
-    private val linkDescription = "Матны требующего знания\n"
+    private val linkDescription = "7 рубежей Единобожия\n"
     private val linkApp = "https://play.google.com/store/apps/details?id=jmapps.fundamentals"
 
     override fun getSettings() {
