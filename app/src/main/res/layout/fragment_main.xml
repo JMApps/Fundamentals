@@ -37,6 +37,7 @@
                     android:padding="12dp"
                     android:textColor="@color/main"
                     android:textIsSelectable="true"
+                    android:visibility="gone"
                     android:textSize="18sp" />
 
                 <TextView
