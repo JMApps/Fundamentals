@@ -50,7 +50,7 @@
             android:importantForAutofill="no"
             android:inputType="textCapSentences|textMultiLine"
             android:overScrollMode="ifContentScrolls"
-            android:padding="16dp"
+            android:padding="8dp"
             android:scrollbarThumbVertical="@drawable/scroll_thumb"
             android:scrollbars="vertical"
             android:textColor="@color/add_note_edit_text_request_color"
